@@ -15,8 +15,8 @@ def process_message(message_body):
         data = json.loads(message_body)
         logger.info(f"Processing job for file {data['s3_key']} from bucket {data['s3_bucket']}")
         
-        file_extension = os.path.splitext(data['s3_key'])[1].lower().lstrip('.')
-        tmp_file = os.path.join(Config.TEMP_FILE_DIR, f"download.{file_extension}")
+        file_name = os.path.basename(data['s3_key'])
+        tmp_file = os.path.join(Config.TEMP_FILE_DIR, file_name)
 
         s3_service = S3Service()
         logger.info(f"Downloading file from S3: {data['s3_bucket']}/{data['s3_key']}")
